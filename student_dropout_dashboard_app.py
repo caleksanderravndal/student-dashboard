@@ -254,7 +254,7 @@ def main():
 
     risk_counts = dashboard_df["risk_level"].value_counts()
 
-    fig, ax = plt.subplots(figsize=(5,3))
+    fig, ax = plt.subplots(figsize=(6,3))
     risk_counts = dashboard_df["risk_level"].value_counts().reindex(["Low", "Moderate", "High"])
     colors = ["#4CAF50", "#FFC107", "#F44336"]
     risk_counts.plot(kind="bar", ax=ax, color=colors)
