@@ -345,6 +345,8 @@ def main():
         metric_col3.metric("Moderate Risk", moderate_risk)
         metric_col4.metric("Average Risk", f"{avg_risk:.1f}%")
 
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
     # -------------------------------
     # Student Table
     # -------------------------------
@@ -368,6 +370,8 @@ def main():
     )
 
     st.dataframe(table_df[display_cols], use_container_width=True)
+
+    st.markdown("<br><br>", unsafe_allow_html=True)
 
     # -------------------------------
     # Student Detail
