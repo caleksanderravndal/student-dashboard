@@ -309,28 +309,14 @@ def main():
     model = train_model(df)
     dashboard_df = create_dashboard_dataframe(df, model)
 
-    # -------------------------------
-    # Summary Metrics
-    # -------------------------------
-
-    total_students = len(dashboard_df)
-    high_risk = (dashboard_df["risk_level"] == "High").sum()
-    moderate_risk = (dashboard_df["risk_level"] == "Moderate").sum()
-    avg_risk = dashboard_df["dropout_probability"].mean() * 100
-
-    col1, col2, col3, col4 = st.columns(4)
-    col1.metric("Students", total_students)
-    col2.metric("High Risk", high_risk)
-    col3.metric("Moderate Risk", moderate_risk)
-    col4.metric("Average Risk", f"{avg_risk:.1f}%")
 
     # -------------------------------
-    # Risk Distribution + Guide
+    # Dashboard Overview
     # -------------------------------
 
-    st.subheader("Risk Distribution and Dashboard Guide")
+    st.subheader("Dashboard Overview")
 
-    left_col, right_col = st.columns([1.2, 1])
+    left_col, right_col = st.columns([1.1, 1.2])
 
     with left_col:
         risk_counts = dashboard_df["risk_level"].value_counts().reindex(["Low", "Moderate", "High"])
@@ -345,34 +331,18 @@ def main():
         st.pyplot(fig)
 
     with right_col:
-        st.markdown("### What the labels mean")
-        st.markdown(
-            """
-            **Risk levels**
-            - **Low**: lower predicted dropout probability
-            - **Moderate**: some warning signals are present
-            - **High**: stronger warning signals are present
+        total_students = len(dashboard_df)
+        high_risk = (dashboard_df["risk_level"] == "High").sum()
+        moderate_risk = (dashboard_df["risk_level"] == "Moderate").sum()
+        avg_risk = dashboard_df["dropout_probability"].mean() * 100
 
-            **Risk score**
-            - Percentage estimate of dropout probability based on the model
+        metric_col1, metric_col2 = st.columns(2)
+        metric_col3, metric_col4 = st.columns(2)
 
-            **Recommended action**
-            - Suggested next step for advisors or educators
-            """
-        )
-
-        st.markdown("### About grades and approved units")
-        st.markdown(
-            """
-            **Curricular units 1st sem (approved)**
-            - Number of first-semester units the student passed successfully
-
-            **Curricular units 1st sem (grade)**
-            - Average first-semester grade in the dataset  
-            - The dataset comes from Portugal, where grades are typically on a **0–20 scale**
-            - In general, **10 is usually the minimum passing grade**
-            """
-        )
+        metric_col1.metric("Students", total_students)
+        metric_col2.metric("High Risk", high_risk)
+        metric_col3.metric("Moderate Risk", moderate_risk)
+        metric_col4.metric("Average Risk", f"{avg_risk:.1f}%")
 
     # -------------------------------
     # Student Table
@@ -441,19 +411,38 @@ def main():
         "It is intended to make the model output easier to understand, not to provide a full causal explanation."
     )
 
-    # -------------------------------
-    # Student Detail Legend
-    # -------------------------------
+    st.markdown("### Help and Definitions")
 
-    st.markdown("### Student Detail Legend")
+help_col1, help_col2 = st.columns(2)
+
+with help_col1:
+    st.markdown("#### What the labels mean")
     st.markdown(
         """
-        - **Risk Score**: estimated probability that the student belongs to the dropout class
-        - **Risk Level**: simplified category based on the risk score
-        - **Approved Units (1st Sem)**: number of first-semester units successfully completed
-        - **Grade (1st Sem)**: average first-semester grade in the original dataset
-        - **Tuition Fees Up to Date**: whether tuition payments are recorded as current
-        - **Recommended Action**: suggested support response for follow-up
+        **Risk levels**
+        - **Low**: lower predicted dropout probability
+        - **Moderate**: some warning signals are present
+        - **High**: stronger warning signals are present
+
+        **Risk score**
+        - Percentage estimate of dropout probability based on the model
+
+        **Recommended action**
+        - Suggested next step for advisors or educators
+        """
+    )
+
+with help_col2:
+    st.markdown("#### About grades and approved units")
+    st.markdown(
+        """
+        **Approved Units (1st Sem)**
+        - Number of first-semester units the student passed successfully
+
+        **Grade (1st Sem)**
+        - Average first-semester grade in the dataset
+        - The dataset comes from Portugal, where grades are typically on a **0–20 scale**
+        - In general, **10 is usually the minimum passing grade**
         """
     )
 
