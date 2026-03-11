@@ -309,6 +309,8 @@ def main():
     model = train_model(df)
     dashboard_df = create_dashboard_dataframe(df, model)
 
+    st.markdown("<br><br>", unsafe_allow_html=True)
+
     # -------------------------------
     # Dashboard Overview
     # -------------------------------
