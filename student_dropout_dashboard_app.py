@@ -309,7 +309,6 @@ def main():
     model = train_model(df)
     dashboard_df = create_dashboard_dataframe(df, model)
 
-
     # -------------------------------
     # Dashboard Overview
     # -------------------------------
@@ -413,38 +412,38 @@ def main():
 
     st.markdown("### Help and Definitions")
 
-help_col1, help_col2 = st.columns(2)
+    help_col1, help_col2 = st.columns(2)
 
-with help_col1:
-    st.markdown("#### What the labels mean")
-    st.markdown(
-        """
-        **Risk levels**
-        - **Low**: lower predicted dropout probability
-        - **Moderate**: some warning signals are present
-        - **High**: stronger warning signals are present
+    with help_col1:
+        st.markdown("#### What the labels mean")
+        st.markdown(
+            """
+            **Risk levels**
+            - **Low**: lower predicted dropout probability
+            - **Moderate**: some warning signals are present
+            - **High**: stronger warning signals are present
 
-        **Risk score**
-        - Percentage estimate of dropout probability based on the model
+            **Risk score**
+            - Percentage estimate of dropout probability based on the model
 
-        **Recommended action**
-        - Suggested next step for advisors or educators
-        """
-    )
+            **Recommended action**
+            - Suggested next step for advisors or educators
+            """
+        )
 
-with help_col2:
-    st.markdown("#### About grades and approved units")
-    st.markdown(
-        """
-        **Approved Units (1st Sem)**
-        - Number of first-semester units the student passed successfully
+    with help_col2:
+        st.markdown("#### About grades and approved units")
+        st.markdown(
+            """
+            **Approved Units (1st Sem)**
+            - Number of first-semester units the student passed successfully
 
-        **Grade (1st Sem)**
-        - Average first-semester grade in the dataset
-        - The dataset comes from Portugal, where grades are typically on a **0–20 scale**
-        - In general, **10 is usually the minimum passing grade**
-        """
-    )
+            **Grade (1st Sem)**
+            - Average first-semester grade in the dataset
+            - The dataset comes from Portugal, where grades are typically on a **0–20 scale**
+            - In general, **10 is usually the minimum passing grade**
+            """
+        )
 
 
 if __name__ == "__main__":
