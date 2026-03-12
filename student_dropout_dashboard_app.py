@@ -402,6 +402,7 @@ def main():
     st.markdown("### Explanation")
     st.write(explain_student(row))
 
+    st.markdown("<br><br>", unsafe_allow_html=True)
     st.markdown("### Why this student received this risk score")
     factor_rows = get_risk_factor_rows(row)
 
