@@ -416,6 +416,8 @@ def main():
         "It is intended to make the model output easier to understand, not to provide a full causal explanation."
     )
 
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    st.markdown("---")
     st.markdown("### Help and Definitions")
 
     help_col1, help_col2 = st.columns(2)
